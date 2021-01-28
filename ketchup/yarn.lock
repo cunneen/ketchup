@@ -150,7 +150,7 @@
   optionalDependencies:
     electron-installer-debian "^2.0.0"
 
-"@electron-forge/maker-dmg@^6.0.0-beta.45":
+"@electron-forge/maker-dmg@6.0.0-beta.45":
   version "6.0.0-beta.45"
   resolved "https://registry.yarnpkg.com/@electron-forge/maker-dmg/-/maker-dmg-6.0.0-beta.45.tgz#5522d97286999170bd198d4f51478c6443644489"
   integrity sha512-+F9QZTurxfyI779Tu/H/84ygh9BxIxBAVEJqcHwrOFZyZOmxHKzx1MD33pGnErYyU4hjmPue3hadfDVR2c74Hw==
@@ -927,10 +927,10 @@ electron-winstaller@^4.0.0:
     lodash.template "^4.2.2"
     temp "^0.9.0"
 
-electron@7.0.0:
-  version "7.0.0"
-  resolved "https://registry.yarnpkg.com/electron/-/electron-7.0.0.tgz#47a5b15ca213f32c20d85f82a1be615a74cdf55f"
-  integrity sha512-vrF1loRW1p0vQCbduqO0EZpo8ePJOuxUT6tSoUSU3lsbGK3VnlJop+0PpCIPzbe2K4G4Gk7WexH08V9se7mJcA==
+electron@9.4.0:
+  version "9.4.0"
+  resolved "https://registry.yarnpkg.com/electron/-/electron-9.4.0.tgz#c3c607e3598226ddbaaff8babcdffa8bb2210936"
+  integrity sha512-hOC4q0jkb+UDYZRy8vrZ1IANnq+jznZnbkD62OEo06nU+hIbp2IrwDRBNuSLmQ3cwZMVir0WSIA1qEVK0PkzGA==
   dependencies:
     "@electron/get" "^1.0.1"
     "@types/node" "^12.0.12"
