@@ -150,7 +150,7 @@
   optionalDependencies:
     electron-installer-debian "^2.0.0"
 
-"@electron-forge/maker-dmg@^6.0.0-beta.45":
+"@electron-forge/maker-dmg@6.0.0-beta.45":
   version "6.0.0-beta.45"
   resolved "https://registry.yarnpkg.com/@electron-forge/maker-dmg/-/maker-dmg-6.0.0-beta.45.tgz#5522d97286999170bd198d4f51478c6443644489"
   integrity sha512-+F9QZTurxfyI779Tu/H/84ygh9BxIxBAVEJqcHwrOFZyZOmxHKzx1MD33pGnErYyU4hjmPue3hadfDVR2c74Hw==
@@ -1863,10 +1863,10 @@ mkdirp@0.5.1, mkdirp@^0.5.0, mkdirp@^0.5.1:
   dependencies:
     minimist "0.0.8"
 
-moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
+moment@^2.29.4:
+  version "2.29.4"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.29.4.tgz#3dbe052889fe7c1b2ed966fcb3a77328964ef108"
+  integrity sha512-5LC9SOxjSc2HF6vO2CyuTDNivEdoz2IvyJJGj6X8DJ0eFyfszE0QiEd+iXmBvUP3WHxSjFH/vIsA0EN00cgr8w==
 
 ms@2.0.0:
   version "2.0.0"
