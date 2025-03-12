@@ -6,6 +6,8 @@
   "main": "src/index.js",
   "scripts": {
     "start": "electron-forge start",
+    "debug": "electron-forge start --enable-logging --inspect-electron",
+    "debug-brk": "electron-forge start --enable-logging --inspect-brk-electron",
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
@@ -57,23 +59,26 @@
     }
   },
   "dependencies": {
-    "@fortawesome/fontawesome-free": "^5.11.2",
-    "bootstrap": "^4.3.1",
-    "bootswatch": "^4.3.1",
-    "electron-squirrel-startup": "^1.0.0",
-    "jquery": "^3.4.1",
-    "less": "^3.10.3",
-    "moment": "^2.24.0",
-    "popper.js": "^1.16.0",
-    "requirejs": "^2.3.6"
+    "@fortawesome/fontawesome-free": "^5.15.4",
+    "bootstrap": "^4.6.2",
+    "bootswatch": "^4.6.2",
+    "electron-squirrel-startup": "^1.0.1",
+    "jquery": "^3.7.1",
+    "less": "^3.13.1",
+    "moment": "^2.30.1",
+    "popper.js": "^1.16.1",
+    "requirejs": "^2.3.7"
   },
   "devDependencies": {
-    "@electron-forge/cli": "6.0.0-beta.45",
-    "@electron-forge/maker-deb": "6.0.0-beta.45",
-    "@electron-forge/maker-dmg": "6.0.0-beta.45",
-    "@electron-forge/maker-rpm": "6.0.0-beta.45",
-    "@electron-forge/maker-squirrel": "6.0.0-beta.45",
-    "@electron-forge/maker-zip": "6.0.0-beta.45",
-    "electron": "7.0.0"
+    "@electron-forge/cli": "^7.7.0",
+    "@electron-forge/maker-deb": "^7.7.0",
+    "@electron-forge/maker-dmg": "^7.7.0",
+    "@electron-forge/maker-rpm": "^7.7.0",
+    "@electron-forge/maker-squirrel": "^7.7.0",
+    "@electron-forge/maker-zip": "^7.7.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.7.0",
+    "@electron-forge/plugin-fuses": "^7.7.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "35.0.1"
   }
 }
