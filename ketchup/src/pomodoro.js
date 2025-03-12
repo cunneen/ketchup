@@ -1,9 +1,9 @@
 // app code for pomodoro timer
 
 // notification constants.
-const title = 'Pomodoro Finished';
+const title = "Pomodoro Finished";
 const text = moment().toLocaleString();
-const img = './images/tomato.png';
+const img = "./images/tomato.png";
 const secs10 = 10 * 1000;
 
 // timer variables
@@ -17,22 +17,26 @@ let timerRef; // reference to the timer itself (so we can cancel it)
 let tickerRef; // a reference to the ticker interval
 
 function sec2time(timeInSeconds) {
-  var pad = function(num, size) { return ('000' + num).slice(size * -1); },
+  var pad = function (num, size) {
+      return ("000" + num).slice(size * -1);
+    },
     time = parseFloat(timeInSeconds).toFixed(3),
     hours = Math.floor(time / 60 / 60),
     minutes = Math.floor(time / 60) % 60,
     seconds = Math.floor(time - minutes * 60);
-    // milliseconds = time.slice(-3);
+  // milliseconds = time.slice(-3);
 
-  return `${pad(hours, 2)}:${pad(minutes, 2) }:${pad(seconds, 2)}`;
+  return `${pad(hours, 2)}:${pad(minutes, 2)}:${pad(seconds, 2)}`;
 }
 
 // upon timer tick, re-render time remaining.
-const tick = ()=>{
+const tick = () => {
   const timeRemaining = timerEnd - moment().valueOf();
   // console.log(`${sec2time(timeRemaining / 1000)}`);
   if (timerRunning) {
-    $('.mp-info').text(`${sec2time(timeRemaining / 1000)} remaining`)
+    const timeRemainingHuman = sec2time(timeRemaining / 1000);
+    $(".mp-info").text(`${timeRemainingHuman} remaining`);
+    window.electronAPI?.onTimeRemainingUpdate(timeRemainingHuman);
   }
 };
 
@@ -50,17 +54,20 @@ const stopTicker = () => {
 const stopTimer = () => {
   clearTimeout(timerRef);
   timerRunning = false;
+  window.electronAPI?.onTimerStatusChange(false);
 };
 
 // show the completed modal
 const showCompletedModal = () => {
-  $(".mp-modal-finished #mp-modal-body-time").text(moment(timerEnd).format("HH:mm:ss"));
+  $(".mp-modal-finished #mp-modal-body-time").text(
+    moment(timerEnd).format("HH:mm:ss")
+  );
   $(".mp-modal-finished").modal("show");
 };
 
 // render appropriate div to request permissions or start timer,
 // depending on current permission state.
-const renderPermissionState = ()=>{
+const renderPermissionState = () => {
   const mptimerdiv = $(".mp-timer");
   const mpgrantdiv = $(".mp-grant-permissions");
   switch (Notification.permission) {
@@ -81,7 +88,6 @@ const renderButtonReadyState = () => {
   $(".mp-timer-btn").addClass("btn-success").removeClass("btn-warning");
   $(".mp-start-timer-info").removeClass("invisible");
   $(".mp-cancel-timer-info").addClass("invisible");
-
 };
 
 const renderButtonRunningState = () => {
@@ -90,25 +96,48 @@ const renderButtonRunningState = () => {
   $(".mp-cancel-timer-info").removeClass("invisible");
 };
 
-
 // start the timer
 const startTimer = () => {
   timerStart = moment().valueOf();
   timerEnd = moment().add(timerSettingValue, timerSettingUnit).valueOf();
   timerRunning = true;
+  window.electronAPI?.onTimerStatusChange(true);
   timerRef = setTimeout(() => {
-    const notification = new Notification(title, {body: text, icon: img, badge: img});
+    const notification = new Notification(title, {
+      body: text,
+      icon: img,
+      badge: img,
+    });
     setTimeout(notification.close.bind(notification), notificationCloseSetting);
     timerRunning = false;
+    window.electronAPI?.onTimerStatusChange(false);
     renderButtonReadyState();
     showCompletedModal();
-  }, (timerEnd - timerStart));
+  }, timerEnd - timerStart);
 };
 
 $(document).ready(() => {
-  const mpTimerBtnRef =  $(".mp-timer-btn");
+  const mpTimerBtnRef = $(".mp-timer-btn");
 
   renderPermissionState();
+
+  window.electronAPI.onStartTimer(() => {
+    if (!timerRunning) {
+      // start timer
+      startTimer();
+      startTicker();
+      renderButtonRunningState();
+    }
+  });
+
+  window.electronAPI.onStopTimer(() => {
+    if (timerRunning) {
+      // cancel timer
+      stopTicker();
+      stopTimer();
+      renderButtonReadyState();
+    }
+  });
 
   // user clicks 'start', start timer, show notification upon timer complete.
   mpTimerBtnRef.on("click", () => {
@@ -126,17 +155,17 @@ $(document).ready(() => {
   });
 
   // user clicks 'grant permissions', request permissions and re-render.
-  $(".mp-grant-permissions-btn").on("click", ()=>{
-    Notification.requestPermission().then(function(result) {
-      console.log(result);
+  $(".mp-grant-permissions-btn").on("click", () => {
+    Notification.requestPermission().then(function (result) {
+      console.log("Permissions result:", result);
       renderPermissionState();
     });
   });
 
   // temp for debugging
   // $(".mp-info").on("click", () => {
-    // const notification = new Notification(title, {body: text, icon: img, badge: img, image: img});
+  // const notification = new Notification(title, {body: text, icon: img, badge: img, image: img});
 
-    // showCompletedModal();
+  // showCompletedModal();
   // });
 });
